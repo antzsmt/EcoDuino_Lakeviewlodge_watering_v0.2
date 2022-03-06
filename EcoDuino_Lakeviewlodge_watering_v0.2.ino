@@ -42,7 +42,6 @@ void pumpOn(int MoiSensor, int Carbon, int Temperature_max)
 {
    int humidity;
    int humidity_max;
-   //int moisture_dat;
    float dht_t;
    
    //To choose use the Moisture Sensor or the Carbon 
@@ -56,14 +55,9 @@ void pumpOn(int MoiSensor, int Carbon, int Temperature_max)
    }else{
     humidity = 0;
    }
-   //humidity = flower.getHumidity();
-   //Serial.print("Humidity is:" );
+   
    Serial.print("Soil Moisture is:" );
    Serial.print(humidity);Serial.print("% ");
-   //Serial.println();
-   //moisture_dat = flower.MoistureSensor();
-   //Serial.print("Soil Moisture is:" );
-   //Serial.print(moisture_dat);Serial.print("% ");
    Serial.println();
    humidity_max = flower.ADJ_humMax(); 
    Serial.println();
