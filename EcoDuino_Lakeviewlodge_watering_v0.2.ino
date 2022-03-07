@@ -32,8 +32,12 @@ void loop()
   //Power on the pump for testing whether the pump can work properly
   //flower.pumpTestOn();  
   delay(2000);
-  flower.pumpOff();
+  //flower.pumpOff();
   delay(2000);
+  Serial.println();
+  humidity = flower.getHumidity();
+  Serial.print("Humidity is     :" );
+  Serial.print(humidity);Serial.print("% ");
   Serial.println();
 }
 
@@ -63,7 +67,9 @@ void pumpOn(int MoiSensor, int Carbon, int Temperature_max)
    Serial.println();
    dht_t = flower.getTemperature();
    Serial.print("Temperature is :");
-   Serial.print(dht_t);Serial.print("°C ");
+   //Serial.print(dht_t);Serial.print("°C"); //**For use with Arduino Serial Monitor
+   //Serial.print(dht_t);Serial.print(char(176));Serial.print("C");  //Another way to display Temperature symbol
+   Serial.print(dht_t);Serial.print("\xB0""C");  //**For use with 3rd party serial monitor program
    Serial.println();
    
    digitalWrite(6,LOW);
@@ -75,14 +81,18 @@ void pumpOn(int MoiSensor, int Carbon, int Temperature_max)
     {
       digitalWrite(6,HIGH);
       digitalWrite(5,HIGH);
-       Serial.println("Pump is switched on!");
+      Serial.println();
+      Serial.println("Soil moisture critical!!!...");
+      Serial.println("Applying water..");
+      Serial.println("Pump is switched on!");
      }
    else
     {
       digitalWrite(6,LOW);
       digitalWrite(5,LOW);
-    }
-   humidity = flower.getHumidity();
-   Serial.print("Humidity is:" );
-   Serial.print(humidity);Serial.print("% ");
+      Serial.println();
+      Serial.print("Soil moisture levels normal");
+      flower.pumpOff();
+      Serial.println("Pump is Ready");
+   }
 }
